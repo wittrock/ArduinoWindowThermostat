@@ -1,3 +1,5 @@
+// This is an example comment for Ben.
+
 /*********************
 
 Example code for the Adafruit RGB Character LCD Shield and Library
