@@ -39,6 +39,8 @@ DallasTemperature sensors(&oneWire);
 int dir=5;
 int steps=6;
 int stepsVal = LOW; 
+int color=0;
+
 void setup() {
   // Debugging output
   Serial.begin(9600);
@@ -68,20 +70,27 @@ void loop() {
   lcd.setCursor(0,1);
   lcd.print("Temp 2 is: ");
   lcd.print(sensors.getTempCByIndex(1));
-  uint8_t buttons = lcd.readButtons();
   
-  if (buttons & BUTTON_LEFT){
-   lcd.setBacklight(RED); 
-  }
-  if (buttons & BUTTON_RIGHT){
-   lcd.setBacklight(GREEN);
-  }
-  if (buttons & BUTTON_SELECT){
-   lcd.setBacklight(VIOLET);
-  }
+  uint8_t buttons = lcd.readButtons();
 
-  while(buttons & (BUTTON_UP | BUTTON_DOWN)) {
+  if (buttons & BUTTON_SELECT){
+    color = color + 1;
+  }
+  if (color == 1){
+    lcd.setBacklight(RED);
+  }
+  else if (color == 2){
+    lcd.setBacklight(GREEN);
+  }
+  else if (color == 3){
+    lcd.setBacklight(BLUE);
+  }
+  else if (color == 4){
     lcd.setBacklight(WHITE);
+    color = 0;
+  }
+  
+  while(buttons & (BUTTON_UP | BUTTON_DOWN)) {
     digitalWrite(13, HIGH);
     int dirVal = 0;
 
